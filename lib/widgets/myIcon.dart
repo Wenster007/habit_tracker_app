@@ -10,12 +10,12 @@ class MyIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: onPressed,
-      icon: Icon(
-        iconData,
-        color: Colors.white,
-        size: Dimensions.height * 0.036,
+    return GestureDetector(
+      onTap: onPressed,
+      child: Icon(
+          iconData,
+          color: Colors.white,
+          size: Dimensions.height * 0.036,
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habit_tracker/widgets/add_dialog_box.dart';
 
 import '../Utils/dimensions.dart';
 import 'heading_text.dart';
@@ -19,19 +20,34 @@ class HomeScreenTopHeader extends StatelessWidget {
       ),
       alignment: Alignment.center,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
+        padding: const EdgeInsets.only(left: 12),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const HeadingText(text: "Habits"),
-            Container(
-              width: Dimensions.width * 0.4,
+            SizedBox(
+              width: Dimensions.width * 0.35,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  MyIcon(iconData: Icons.add, onPressed: (){}),
-                  MyIcon(iconData: Icons.menu, onPressed: (){}),
-                  MyIcon(iconData: Icons.more_vert, onPressed: (){}),
+                  MyIcon(
+                      iconData: Icons.add,
+                      onPressed: () {
+                        showGeneralDialog(
+                            context: context,
+                            barrierDismissible: true,
+                            barrierLabel: MaterialLocalizations.of(context)
+                                .modalBarrierDismissLabel,
+                            barrierColor: Colors.black.withOpacity(0.5),
+                            transitionDuration: const Duration(milliseconds: 0),
+                            pageBuilder: (BuildContext context,
+                                Animation animation,
+                                Animation secondaryAnimation) {
+                              return const AddDialogueBox();
+                            });
+                      }),
+                  MyIcon(iconData: Icons.menu, onPressed: () {}),
+                  MyIcon(iconData: Icons.more_vert, onPressed: () {}),
                 ],
               ),
             ),
