@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:habit_tracker/Utils/dimensions.dart';
 import 'package:habit_tracker/Utils/main_colors.dart';
 import 'package:habit_tracker/widgets/choose_color_field.dart';
+import 'package:habit_tracker/widgets/custom_dropdown.dart';
 import 'package:habit_tracker/widgets/custom_textfield.dart';
 import 'package:habit_tracker/widgets/yes_no_top_appbar.dart';
 
@@ -23,6 +24,7 @@ class YesNoAddScreen extends StatelessWidget {
               padding: const EdgeInsets.only(
                 left: 8.0,
                 right: 8.0,
+                top: 8,
               ),
               child: Column(
                 children: [
@@ -35,14 +37,23 @@ class YesNoAddScreen extends StatelessWidget {
                           hintText: "e.g. Exercise",
                         ),
                       ),
-
-                      SizedBox(width: Dimensions.width * 0.02,),
-
+                      SizedBox(
+                        width: Dimensions.width * 0.02,
+                      ),
                       const ChooseColorField(nameOfTextField: "Color"),
                     ],
                   ),
-                  SizedBox(height: Dimensions.height * 0.006,),
-                  CustomTextField(textEditingController: questionController, nameOfTextField: "Question", hintText: "e.g. Did you exercise today?")
+                  SizedBox(
+                    height: Dimensions.height * 0.006,
+                  ),
+                  CustomTextField(
+                      textEditingController: questionController,
+                      nameOfTextField: "Question",
+                      hintText: "e.g. Did you exercise today?"),
+                  SizedBox(
+                    height: Dimensions.height * 0.006,
+                  ),
+                  const CustomDropDown(nameOfTextField: "Frequency"),
                 ],
               ),
             ),

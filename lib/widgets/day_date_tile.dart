@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:habit_tracker/widgets/grey_small_text.dart';
 
 import '../Utils/dimensions.dart';
@@ -42,7 +41,7 @@ class DayDateTile extends StatelessWidget {
   Widget build(BuildContext context) {
     DateTime dateTime = DateTime.now();
 
-    final currDateTime = dateTime.add(Duration(days: index));
+    final currDateTime = dateTime.subtract(Duration(days: index));
 
     return Container(
       width: Dimensions.width * 0.13,

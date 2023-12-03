@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:habit_tracker/widgets/add_dialog_box.dart';
+import 'package:habit_tracker/widgets/TopHeaderIcons.dart';
 
 import '../Utils/dimensions.dart';
 import 'heading_text.dart';
-import 'myIcon.dart';
+
 
 class HomeScreenTopHeader extends StatelessWidget {
   const HomeScreenTopHeader({
@@ -18,7 +18,7 @@ class HomeScreenTopHeader extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.black87.withOpacity(0.9),
       ),
-      alignment: Alignment.center,
+      // alignment: Alignment.center,
       child: Padding(
         padding: const EdgeInsets.only(left: 12),
         child: Row(
@@ -27,29 +27,7 @@ class HomeScreenTopHeader extends StatelessWidget {
             const HeadingText(text: "Habits"),
             SizedBox(
               width: Dimensions.width * 0.35,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  MyIcon(
-                      iconData: Icons.add,
-                      onPressed: () {
-                        showGeneralDialog(
-                            context: context,
-                            barrierDismissible: true,
-                            barrierLabel: MaterialLocalizations.of(context)
-                                .modalBarrierDismissLabel,
-                            barrierColor: Colors.black.withOpacity(0.5),
-                            transitionDuration: const Duration(milliseconds: 0),
-                            pageBuilder: (BuildContext context,
-                                Animation animation,
-                                Animation secondaryAnimation) {
-                              return const AddDialogueBox();
-                            });
-                      }),
-                  MyIcon(iconData: Icons.menu, onPressed: () {}),
-                  MyIcon(iconData: Icons.more_vert, onPressed: () {}),
-                ],
-              ),
+              child: const TopHeaderIcons(),
             ),
           ],
         ),
