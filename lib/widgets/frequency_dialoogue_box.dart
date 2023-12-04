@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class FrequencyDialogueBox extends StatefulWidget {
 
   final void Function(String) callback;
+  final String currentSelectedFrequency;
 
-  const FrequencyDialogueBox({Key? key, required this.callback}) : super(key: key);
+  const FrequencyDialogueBox({Key? key, required this.callback, required this.currentSelectedFrequency}) : super(key: key);
 
 
   @override
@@ -13,10 +14,11 @@ class FrequencyDialogueBox extends StatefulWidget {
 
 class _FrequencyDialogueBoxState extends State<FrequencyDialogueBox> {
 
-  String selectedValue = 'everyday';
 
   @override
   Widget build(BuildContext context) {
+    String selectedValue = widget.currentSelectedFrequency;
+
     return Center(
       child: Material(
         child: Column(
@@ -31,7 +33,7 @@ class _FrequencyDialogueBoxState extends State<FrequencyDialogueBox> {
                     setState(() {
                       selectedValue = value!;
                       widget.callback(value);
-
+                      Navigator.pop(context);
                     });
                   }),
             ),
@@ -44,6 +46,7 @@ class _FrequencyDialogueBoxState extends State<FrequencyDialogueBox> {
                     setState(() {
                       selectedValue = value!;
                       widget.callback(value);
+                      Navigator.pop(context);
                     });
                   }),
             ),
@@ -56,6 +59,7 @@ class _FrequencyDialogueBoxState extends State<FrequencyDialogueBox> {
                     setState(() {
                       selectedValue = value!;
                       widget.callback(value);
+                      Navigator.pop(context);
                     });
                   }),
             ),
@@ -68,6 +72,7 @@ class _FrequencyDialogueBoxState extends State<FrequencyDialogueBox> {
                     setState(() {
                       selectedValue = value!;
                       widget.callback(value);
+                      Navigator.pop(context);
                     });
                   }),
             ),

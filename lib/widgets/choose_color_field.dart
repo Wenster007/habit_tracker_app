@@ -1,13 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:habit_tracker/widgets/color_dialogue_box.dart';
 
 import '../Utils/dimensions.dart';
 import '../Utils/main_colors.dart';
 
-class ChooseColorField extends StatelessWidget {
+class ChooseColorField extends StatefulWidget {
   const ChooseColorField({Key? key, required this.nameOfTextField})
       : super(key: key);
 
   final String nameOfTextField;
+
+  @override
+  State<ChooseColorField> createState() => _ChooseColorFieldState();
+}
+
+class _ChooseColorFieldState extends State<ChooseColorField> {
+
+  Color currentSelectedColor = Colors.red;
+
+  void onColorChange(Color newSelectedColor) {
+    setState(() {
+      currentSelectedColor = newSelectedColor;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +40,27 @@ class ChooseColorField extends StatelessWidget {
               Dimensions.height * 0.01,
             ),
           ),
-          child: Container(
-            margin: const EdgeInsets.symmetric(
-              horizontal: 18,
-              vertical: 15,
+          child: GestureDetector(
+            onTap: () {
+              showGeneralDialog(
+                  context: context,
+                  barrierDismissible: true,
+                  barrierLabel: MaterialLocalizations.of(context)
+                      .modalBarrierDismissLabel,
+                  barrierColor: Colors.black.withOpacity(0.5),
+                  transitionDuration: const Duration(milliseconds: 0),
+                  pageBuilder: (BuildContext context, Animation animation,
+                      Animation secondaryAnimation) {
+                    return ColorDialogueBox(onColorChange: onColorChange,);
+                  });
+            },
+            child: Container(
+              margin: const EdgeInsets.symmetric(
+                horizontal: 18,
+                vertical: 15,
+              ),
+              color: currentSelectedColor,
             ),
-            color: Colors.red,
           ),
         ),
         Positioned(
@@ -41,7 +71,7 @@ class ChooseColorField extends StatelessWidget {
             height: Dimensions.width * 0.05,
             color: MainColors.lightBrown,
             child: Text(
-              nameOfTextField,
+              widget.nameOfTextField,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: Dimensions.width * 0.035,

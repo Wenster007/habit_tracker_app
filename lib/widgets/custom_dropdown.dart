@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/widgets/frequency_dialoogue_box.dart';
 
@@ -17,7 +18,9 @@ class CustomDropDown extends StatefulWidget
 
 class _CustomDropDownState extends State<CustomDropDown> {
 
-  String selectedFrequency = "Every Day";
+  String selectedFrequency = "everyday";
+  String formatedSelectedFrequency = "Every Day";
+
 
   void updateSelectedFrequency(String newValue){
     setState(() {
@@ -25,6 +28,20 @@ class _CustomDropDownState extends State<CustomDropDown> {
       print(newValue);
     });
 
+    switch (selectedFrequency) {
+      case "everyday":
+        formatedSelectedFrequency = "Every Day";
+        break;
+      case "every3days":
+        formatedSelectedFrequency = "Every 3 Days";
+        break;
+      case "onceaweek":
+        formatedSelectedFrequency = "Once a Week";
+        break;
+      case "onceamonth":
+        formatedSelectedFrequency = "Once a Month";
+        break;
+    }
   }
 
   @override
@@ -57,14 +74,14 @@ class _CustomDropDownState extends State<CustomDropDown> {
                       pageBuilder: (BuildContext context,
                           Animation animation,
                           Animation secondaryAnimation) {
-                        return FrequencyDialogueBox(callback: updateSelectedFrequency,);
+                        return FrequencyDialogueBox(callback: updateSelectedFrequency, currentSelectedFrequency: selectedFrequency,);
                       });
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      selectedFrequency,
+                      formatedSelectedFrequency,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: Dimensions.width * 0.05,

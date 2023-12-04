@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-enum Frequency {oneDay , threeDays, onceAWeek}
+enum Frequency {oneday , oncethreedays, onceaweek, onceamonth}
 
 class Habit {
   final bool isMeasurable;
@@ -28,11 +28,11 @@ class Habit {
 }
 
 class Result {
-  final bool isTaskCompleted;
+  final bool isTargetCompleted;
   final DateTime dateTime;
   final String value;
 
-  Result({required this.isTaskCompleted, required this.dateTime, required this.value});
+  Result({required this.isTargetCompleted, required this.dateTime, required this.value});
 }
 
 class Quantity {

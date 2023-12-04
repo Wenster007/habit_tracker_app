@@ -5,5 +5,6 @@ class MainColors {
   static c.Color lightBrown = const c.Color(0xFF303030);
   static c.Color lightGreyColor = const c.Color(0xFFd5d5d5);
   static c.Color blackColor = const c.Color(0xFF101010);
+  static c.Color grayColor = const c.Color(0xFF424242);
 
 }
