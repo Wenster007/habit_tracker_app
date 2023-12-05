@@ -4,7 +4,9 @@ import '../Utils/dimensions.dart';
 import 'heading_text.dart';
 
 class TopAppbar extends StatelessWidget {
-  const TopAppbar({Key? key}) : super(key: key);
+  const TopAppbar({Key? key, required this.onClickSave}) : super(key: key);
+
+  final void Function() onClickSave;
 
   @override
   Widget build(BuildContext context) {
@@ -35,25 +37,30 @@ class TopAppbar extends StatelessWidget {
                 const HeadingText(text: "Create habit"),
               ],
             ),
-            Container(
-              width: Dimensions.width * 0.25,
-              height: Dimensions.height * 0.05,
-              decoration: BoxDecoration(
-                // color: Colors.red,
-                border: Border.all(color: Colors.white, width: 2),
-                borderRadius: BorderRadius.all(
-                  Radius.circular(
-                    Dimensions.height * 0.006,
+            GestureDetector(
+              onTap: () {
+                onClickSave();
+              },
+              child: Container(
+                width: Dimensions.width * 0.25,
+                height: Dimensions.height * 0.05,
+                decoration: BoxDecoration(
+                  // color: Colors.red,
+                  border: Border.all(color: Colors.white, width: 2),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(
+                      Dimensions.height * 0.006,
+                    ),
                   ),
                 ),
-              ),
-              alignment: Alignment.center,
-              child: Text(
-                "Save",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: Dimensions.height * 0.025,
-                  fontWeight: FontWeight.w500,
+                alignment: Alignment.center,
+                child: Text(
+                  "Save",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: Dimensions.height * 0.025,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
             ),

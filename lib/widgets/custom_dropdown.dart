@@ -7,9 +7,10 @@ import '../Utils/main_colors.dart';
 
 class CustomDropDown extends StatefulWidget
 {
-  const CustomDropDown({Key? key, required this.nameOfTextField})
+  const CustomDropDown({Key? key, required this.nameOfTextField, required this.onChangeFrequency})
       : super(key: key);
 
+  final void Function(String) onChangeFrequency;
   final String nameOfTextField;
 
   @override
@@ -25,7 +26,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
   void updateSelectedFrequency(String newValue){
     setState(() {
       selectedFrequency = newValue;
-      print(newValue);
+      widget.onChangeFrequency(newValue);
     });
 
     switch (selectedFrequency) {

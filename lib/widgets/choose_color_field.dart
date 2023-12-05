@@ -5,9 +5,10 @@ import '../Utils/dimensions.dart';
 import '../Utils/main_colors.dart';
 
 class ChooseColorField extends StatefulWidget {
-  const ChooseColorField({Key? key, required this.nameOfTextField})
+  const ChooseColorField({Key? key, required this.nameOfTextField, required this.onChangeColor})
       : super(key: key);
 
+  final void Function(Color) onChangeColor;
   final String nameOfTextField;
 
   @override
@@ -18,10 +19,12 @@ class _ChooseColorFieldState extends State<ChooseColorField> {
 
   Color currentSelectedColor = Colors.red;
 
+
   void onColorChange(Color newSelectedColor) {
     setState(() {
-      currentSelectedColor = newSelectedColor;
+      currentSelectedColor = newSelectedColor; //used for handling the color of container on screen
     });
+    widget.onChangeColor(newSelectedColor); //used for sending back the color selected for saving purpose
   }
 
   @override

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../Utils/main_colors.dart';
+
 class FrequencyDialogueBox extends StatefulWidget {
 
   final void Function(String) callback;
@@ -21,62 +23,65 @@ class _FrequencyDialogueBoxState extends State<FrequencyDialogueBox> {
 
     return Center(
       child: Material(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ListTile(
-              title: RadioListTile(
-                  title: const Text("Every Day"),
-                  value: "everyday",
-                  groupValue: selectedValue,
-                  onChanged: (value) {
-                    setState(() {
-                      selectedValue = value!;
-                      widget.callback(value);
-                      Navigator.pop(context);
-                    });
-                  }),
-            ),
-            ListTile(
-              title: RadioListTile(
-                  title: const Text("Every 3 Days"),
-                  value: "every3days",
-                  groupValue: selectedValue,
-                  onChanged: (value) {
-                    setState(() {
-                      selectedValue = value!;
-                      widget.callback(value);
-                      Navigator.pop(context);
-                    });
-                  }),
-            ),
-            ListTile(
-              title: RadioListTile(
-                  title: const Text("Once a Week"),
-                  value: "onceaweek",
-                  groupValue: selectedValue,
-                  onChanged: (value) {
-                    setState(() {
-                      selectedValue = value!;
-                      widget.callback(value);
-                      Navigator.pop(context);
-                    });
-                  }),
-            ),
-            ListTile(
-              title: RadioListTile(
-                  title: const Text("Once a Month"),
-                  value: "onceamonth",
-                  groupValue: selectedValue,
-                  onChanged: (value) {
-                    setState(() {
-                      selectedValue = value!;
-                      widget.callback(value);
-                      Navigator.pop(context);
-                    });
-                  }),
-            ),
-          ],
+        child: Container(
+          color: MainColors.grayColor,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                title: RadioListTile(
+                    title: const Text("Every Day"),
+                    value: "everyday",
+                    groupValue: selectedValue,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedValue = value!;
+                        widget.callback(value);
+                        Navigator.pop(context);
+                      });
+                    }),
+              ),
+              ListTile(
+                title: RadioListTile(
+                    title: const Text("Every 3 Days"),
+                    value: "every3days",
+                    groupValue: selectedValue,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedValue = value!;
+                        widget.callback(value);
+                        Navigator.pop(context);
+                      });
+                    }),
+              ),
+              ListTile(
+                title: RadioListTile(
+                    title: const Text("Once a Week"),
+                    value: "onceaweek",
+                    groupValue: selectedValue,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedValue = value!;
+                        widget.callback(value);
+                        Navigator.pop(context);
+                      });
+                    }),
+              ),
+              ListTile(
+                title: RadioListTile(
+                    title: const Text("Once a Month"),
+                    value: "onceamonth",
+                    groupValue: selectedValue,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedValue = value!;
+                        widget.callback(value);
+                        Navigator.pop(context);
+                      });
+                    }),
+              ),
+            ],
+          ),
         ),
       ),
     );
