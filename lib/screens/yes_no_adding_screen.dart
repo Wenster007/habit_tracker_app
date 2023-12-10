@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/Utils/dimensions.dart';
 import 'package:habit_tracker/Utils/main_colors.dart';
+import 'package:get/get.dart';
+import 'package:habit_tracker/controller/habit_controller.dart';
+import 'package:habit_tracker/model/habit.dart';
 import 'package:habit_tracker/widgets/choose_color_field.dart';
 import 'package:habit_tracker/widgets/custom_dropdown.dart';
 import 'package:habit_tracker/widgets/custom_textfield.dart';
@@ -15,12 +18,11 @@ class YesNoAddScreen extends StatefulWidget {
 
 class _YesNoAddScreenState extends State<YesNoAddScreen> {
   final TextEditingController nameController = TextEditingController();
-
   final TextEditingController questionController = TextEditingController();
-
   Color selectedColor = Colors.red;
-
   String frequency = "everyday";
+
+  final habitController = Get.find<HabitController>();
 
   void onChangeColor(Color newColor) {
     selectedColor = newColor;
@@ -31,10 +33,25 @@ class _YesNoAddScreenState extends State<YesNoAddScreen> {
   }
 
   void onClickSave() {
-    print(nameController.text);
-    print(questionController.text);
-    print(selectedColor);
-    print(frequency);
+    if (nameController.text != "" && questionController.text != "") {
+      habitController.createHabit(Habit(
+          isMeasurable: false,
+          name: nameController.text,
+          color: selectedColor,
+          frequency: frequency,
+          question: questionController.text));
+
+      habitController.updateNumberOfHabits();
+
+      Navigator.pop(context);
+    } else {
+      Get.defaultDialog(
+        title: "Error",
+        titleStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        content: const Text("Please enter the required information.", style: TextStyle(color: Colors.white)),
+        backgroundColor: Colors.red,
+      );
+    }
   }
 
   @override
@@ -65,7 +82,9 @@ class _YesNoAddScreenState extends State<YesNoAddScreen> {
                       SizedBox(
                         width: Dimensions.width * 0.02,
                       ),
-                      ChooseColorField(nameOfTextField: "Color", onChangeColor: onChangeColor),
+                      ChooseColorField(
+                          nameOfTextField: "Color",
+                          onChangeColor: onChangeColor),
                     ],
                   ),
                   SizedBox(
@@ -78,7 +97,9 @@ class _YesNoAddScreenState extends State<YesNoAddScreen> {
                   SizedBox(
                     height: Dimensions.height * 0.006,
                   ),
-                  CustomDropDown(nameOfTextField: "Frequency", onChangeFrequency: onChangeFrequency),
+                  CustomDropDown(
+                      nameOfTextField: "Frequency",
+                      onChangeFrequency: onChangeFrequency),
                 ],
               ),
             ),

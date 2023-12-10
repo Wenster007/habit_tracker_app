@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:habit_tracker/helper/dependencies.dart';
 import 'package:habit_tracker/screens/home_screen.dart';
 import 'package:get/get.dart';
 
 void main() {
+  init();
   runApp(const GetMaterialApp(  home: MyApp()));
 }
 
@@ -19,7 +21,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomeScreen(),
+      home: HomeScreen(),
     );
   }
 }

@@ -5,7 +5,9 @@ import '../Utils/main_colors.dart';
 import 'day_date_tile.dart';
 
 class DateRow extends StatelessWidget {
-  const DateRow({Key? key}) : super(key: key);
+  const DateRow({Key? key, required this.scrollController}) : super(key: key);
+
+  final ScrollController scrollController;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +22,7 @@ class DateRow extends StatelessWidget {
           ),
           Expanded(
             child: ListView.builder(
+              controller: scrollController,
               scrollDirection: Axis.horizontal,
               itemCount: 6,
               itemBuilder: (context, index) {
