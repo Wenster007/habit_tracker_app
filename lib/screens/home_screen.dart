@@ -6,7 +6,7 @@ import '../widgets/home_screen_top_header.dart';
 import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -22,12 +22,8 @@ class _HomeScreenState extends State<HomeScreen> {
     scrollController1.addListener(() {
       scrollController2.jumpTo(scrollController1.offset);
     });
-    // scrollController2.addListener(() {
-    //   scrollController1.jumpTo(scrollController2.offset);
-    // });
+
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemBuilder: (context, index) {
                     return HabitTile(
                       addRemoveDateInHabit: habitController.addRemoveDateInHabit,
-                      getResultOfDateInHabit: habitController.getResultOfDateInHabit,
+                      checkDateCompleted: habitController.checkDateCompleted,
                       scrollController: scrollController2,
                       habit: habitController.getListOfHabits()[index],
                     );

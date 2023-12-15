@@ -18,13 +18,18 @@ class HabitController extends GetxController{
 
   void addRemoveDateInHabit(DateTime date, Habit habit) {
     habitRepo.addRemoveDateInHabit(date, habit);
+    update();
   }
 
-  Result? getResultOfDateInHabit(DateTime targetDateTime, Habit habit) {
-    return habitRepo.getResultOfDateInHabit(targetDateTime, habit);
-  }
+  // Result? getResultOfDateInHabit(DateTime targetDateTime, Habit habit) {
+  //   return habitRepo.getResultOfDateInHabit(targetDateTime, habit);
+  // }
 
   void updateNumberOfHabits() {
     update();
+  }
+
+  bool checkDateCompleted(DateTime targetDateTime, Habit habit) {
+    return habitRepo.checkDateCompleted(targetDateTime, habit);
   }
 }

@@ -10,24 +10,32 @@ class HabitRepo{
   }
 
   void addRemoveDateInHabit(DateTime date, Habit habit) {
-    for (var entry in habit.listCompletedTaskDays.entries) {
-      if (entry.key == date) {
-        entry.value.toggleResult();
-      }
+    if (!habit.listCompletedTaskDays.contains("${date.day}-${date.month}-${date.year}")) {
+      habit.listCompletedTaskDays.add("${date.day}-${date.month}-${date.year}");
+    } else {
+      habit.listCompletedTaskDays.remove("${date.day}-${date.month}-${date.year}");
     }
   }
 
-  Result? getResultOfDateInHabit(DateTime targetDateTime, Habit habit) {
-    for (var entry in habit.listCompletedTaskDays.entries) {
-      if (entry.key == targetDateTime) {
-        return entry.value;
-      }
-    }
-    return null; // Not found
-  }
+  // Result? getResultOfDateInHabit(DateTime targetDateTime, Habit habit) {
+  //   for (var entry in habit.listCompletedTaskDays.entries) {
+  //     if (entry.key == targetDateTime) {
+  //       return entry.value;
+  //     }
+  //   }
+  //   return null; // Not found
+  // }
 
   List<Habit> getListOfHabits(){
     return listOfHabits;
+  }
+
+  bool checkDateCompleted(DateTime givenDateTime, Habit habit) {
+    if (habit.listCompletedTaskDays.contains("${givenDateTime.day}-${givenDateTime.month}-${givenDateTime.year}")) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
 

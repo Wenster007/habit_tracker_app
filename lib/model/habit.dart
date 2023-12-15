@@ -8,7 +8,7 @@ class Habit {
   final Color color;
   final String frequency;
   final DateTime? reminder;
-  final Map<DateTime, Result> listCompletedTaskDays = {};
+  final List<String> listCompletedTaskDays = [];
 
   Habit(
       {required this.isMeasurable,
@@ -21,16 +21,6 @@ class Habit {
       });
 }
 
-class Result {
-  late final bool isTargetCompleted;
-  final String? value;
-
-  Result({required this.isTargetCompleted, this.value});
-
-  void toggleResult(){
-    isTargetCompleted = !isTargetCompleted;
-  }
-}
 
 class Quantity {
   final String unit;

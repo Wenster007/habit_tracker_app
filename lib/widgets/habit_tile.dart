@@ -1,26 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:habit_tracker/controller/habit_controller.dart';
 import 'package:habit_tracker/model/habit.dart';
 
 import '../Utils/dimensions.dart';
 import '../Utils/main_colors.dart';
 
 class HabitTile extends StatefulWidget {
-  const HabitTile({Key? key, required this.addRemoveDateInHabit, required this.habit,  required this.getResultOfDateInHabit, required this.scrollController}) : super(key: key);
+  const HabitTile({
+    Key? key,
+    required this.addRemoveDateInHabit,
+    required this.habit,
+    required this.scrollController, required this.checkDateCompleted,
+  }) : super(key: key);
 
   @override
   State<HabitTile> createState() => _HabitTileState();
 
   final void Function(DateTime, Habit) addRemoveDateInHabit;
-  final void Function(DateTime, Habit) getResultOfDateInHabit;
+  final bool Function(DateTime, Habit) checkDateCompleted;
   final ScrollController scrollController;
 
   final Habit habit;
 }
 
 class _HabitTileState extends State<HabitTile> {
-
-
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,7 +36,14 @@ class _HabitTileState extends State<HabitTile> {
         children: [
           Container(
             width: Dimensions.width * 0.5,
-            child: Text(widget.habit.name, style: TextStyle(color: widget.habit.color)),
+            padding: EdgeInsets.symmetric(horizontal: Dimensions.width * 0.06),
+            child: Text(widget.habit.name,
+                style: TextStyle(
+                  color: widget.habit.color,
+                  fontWeight: FontWeight.w400,
+                  fontSize: Dimensions.width * 0.043,
+                  letterSpacing: 2,
+                )),
           ),
           Expanded(
             child: ListView.builder(
@@ -40,19 +51,24 @@ class _HabitTileState extends State<HabitTile> {
               scrollDirection: Axis.horizontal,
               itemCount: 6,
               itemBuilder: (context, index) {
-                return IconButton(
-                    onPressed: () {
-                      DateTime dateTime = DateTime.now();
-                      final currDateTime = dateTime.subtract(Duration(days: index));
-                      widget.addRemoveDateInHabit(currDateTime, widget.habit);
-
-                      //todo: get result and display color accordingly of the habit.
-                      //todo: also add the same scrolling effect.
-                    },
-                    icon: Icon(
-                      Icons.check,
-                      // color: iconColor.withOpacity(0.5),
-                    ),);
+                return GetBuilder<HabitController>(
+                  builder: (controller) {
+                    return IconButton(
+                      onPressed: () {
+                        DateTime dateTime = DateTime.now();
+                        final currDateTime =
+                            dateTime.subtract(Duration(days: index));
+                        setState(() {
+                          widget.addRemoveDateInHabit(currDateTime, widget.habit);
+                        });
+                      },
+                      icon: Icon(
+                        Icons.check,
+                        color: widget.checkDateCompleted(DateTime.now().subtract(Duration(days: index)), widget.habit) ? widget.habit.color : Colors.grey,
+                      ),
+                    );
+                  },
+                );
               },
             ),
           ),
