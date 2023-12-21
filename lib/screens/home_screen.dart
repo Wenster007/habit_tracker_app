@@ -44,6 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     return HabitTile(
                       addRemoveDateInHabit: habitController.addRemoveDateInHabit,
                       checkDateCompleted: habitController.checkDateCompleted,
+                      getWeeklyReport: habitController.getWeeklyReport,
                       scrollController: scrollController2,
                       habit: habitController.getListOfHabits()[index],
                     );

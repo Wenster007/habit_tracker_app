@@ -25,6 +25,10 @@ class HabitController extends GetxController{
   //   return habitRepo.getResultOfDateInHabit(targetDateTime, habit);
   // }
 
+  double getWeeklyReport(DateTime currDate, Habit habit){
+    return habitRepo.getWeeklyReport(currDate, habit);
+  }
+
   void updateNumberOfHabits() {
     update();
   }

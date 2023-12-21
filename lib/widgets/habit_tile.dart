@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:habit_tracker/controller/habit_controller.dart';
 import 'package:habit_tracker/model/habit.dart';
+import 'package:habit_tracker/widgets/custom_circular_progress_indicator.dart';
 
 import '../Utils/dimensions.dart';
 import '../Utils/main_colors.dart';
@@ -11,7 +12,9 @@ class HabitTile extends StatefulWidget {
     Key? key,
     required this.addRemoveDateInHabit,
     required this.habit,
-    required this.scrollController, required this.checkDateCompleted,
+    required this.scrollController,
+    required this.checkDateCompleted,
+    required this.getWeeklyReport,
   }) : super(key: key);
 
   @override
@@ -19,6 +22,7 @@ class HabitTile extends StatefulWidget {
 
   final void Function(DateTime, Habit) addRemoveDateInHabit;
   final bool Function(DateTime, Habit) checkDateCompleted;
+  final double Function(DateTime, Habit) getWeeklyReport;
   final ScrollController scrollController;
 
   final Habit habit;
@@ -35,8 +39,17 @@ class _HabitTileState extends State<HabitTile> {
       child: Row(
         children: [
           Container(
-            width: Dimensions.width * 0.5,
-            padding: EdgeInsets.symmetric(horizontal: Dimensions.width * 0.06),
+            margin: EdgeInsets.symmetric(horizontal: Dimensions.height * 0.013),
+            width: Dimensions.height * 0.03,
+            height: Dimensions.height * 0.03,
+            child: CustomCircularProgressIndicator(
+              progress: widget.getWeeklyReport(DateTime.now(), widget.habit),
+
+              color: widget.habit.color,
+            ),
+          ),
+          Container(
+            width: Dimensions.width * 0.4,
             child: Text(widget.habit.name,
                 style: TextStyle(
                   color: widget.habit.color,
@@ -49,7 +62,7 @@ class _HabitTileState extends State<HabitTile> {
             child: ListView.builder(
               controller: widget.scrollController,
               scrollDirection: Axis.horizontal,
-              itemCount: 6,
+              itemCount: 7,
               itemBuilder: (context, index) {
                 return GetBuilder<HabitController>(
                   builder: (controller) {
@@ -58,13 +71,17 @@ class _HabitTileState extends State<HabitTile> {
                         DateTime dateTime = DateTime.now();
                         final currDateTime =
                             dateTime.subtract(Duration(days: index));
-                        setState(() {
-                          widget.addRemoveDateInHabit(currDateTime, widget.habit);
-                        });
+
+                          widget.addRemoveDateInHabit(
+                              currDateTime, widget.habit);
                       },
                       icon: Icon(
                         Icons.check,
-                        color: widget.checkDateCompleted(DateTime.now().subtract(Duration(days: index)), widget.habit) ? widget.habit.color : Colors.grey,
+                        color: widget.checkDateCompleted(
+                                DateTime.now().subtract(Duration(days: index)),
+                                widget.habit)
+                            ? widget.habit.color
+                            : Colors.grey.withOpacity(0.6),
                       ),
                     );
                   },
@@ -74,6 +91,7 @@ class _HabitTileState extends State<HabitTile> {
           ),
         ],
       ),
+
     );
   }
 }

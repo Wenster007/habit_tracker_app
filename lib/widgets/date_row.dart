@@ -24,7 +24,7 @@ class DateRow extends StatelessWidget {
             child: ListView.builder(
               controller: scrollController,
               scrollDirection: Axis.horizontal,
-              itemCount: 6,
+              itemCount: 7,
               itemBuilder: (context, index) {
                 return DayDateTile(
                   index: index,
