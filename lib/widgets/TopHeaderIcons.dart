@@ -27,7 +27,8 @@ class TopHeaderIcons extends StatelessWidget {
                     return const AddDialogueBox();
                   });
             }),
-        MyIcon(iconData: Icons.menu, onPressed: () {}),
+        MyIcon(iconData: Icons.menu, onPressed: () {
+        }),
         MyIcon(iconData: Icons.more_vert, onPressed: () {}),
       ],
     );

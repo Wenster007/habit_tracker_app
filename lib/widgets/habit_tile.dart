@@ -29,6 +29,9 @@ class HabitTile extends StatefulWidget {
 }
 
 class _HabitTileState extends State<HabitTile> {
+
+  //todo: change the habit tile for measurable habit and make it interactive.
+
   @override
   Widget build(BuildContext context) {
     return Container(
