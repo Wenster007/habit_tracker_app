@@ -45,16 +45,17 @@ class DayDateTile extends StatelessWidget {
 
     return Container(
       width: Dimensions.width * 0.13,
-      // color: Colors.black,
+
       alignment: Alignment.center,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          GreySmallText(text: getWeekDay(currDateTime.weekday).toUpperCase(),),
+          GreySmallText(
+            text: getWeekDay(currDateTime.weekday).toUpperCase(),
+          ),
           GreySmallText(text: currDateTime.day.toString()),
         ],
       ),
     );
-
   }
 }

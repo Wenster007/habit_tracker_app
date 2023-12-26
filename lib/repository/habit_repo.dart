@@ -1,3 +1,4 @@
+
 import 'package:get/get.dart';
 
 import '../model/habit.dart';
@@ -11,13 +12,17 @@ class HabitRepo {
     }
   }
 
-  void addRemoveDateInHabit(DateTime date, Habit habit) {
-    if (!habit.listCompletedTaskDays
-        .contains("${date.day}-${date.month}-${date.year}")) {
-      habit.listCompletedTaskDays.add("${date.day}-${date.month}-${date.year}");
-    } else {
+  //for adding or removing date in YesNo habit.
+  void addRemoveDateInYesNoHabit(DateTime currDate, Habit habit) {
+    String formatedDate = "${currDate.day}-${currDate.month}-${currDate.year}";
+    bool isDatePresent = habit.listCompletedTaskDays
+        .any((completedDay) => completedDay.date == formatedDate);
+
+    if (isDatePresent) {
       habit.listCompletedTaskDays
-          .remove("${date.day}-${date.month}-${date.year}");
+          .removeWhere((completedDay) => completedDay.date == formatedDate);
+    } else {
+      habit.listCompletedTaskDays.add(CompletedDay(formatedDate, null));
     }
   }
 
@@ -30,19 +35,21 @@ class HabitRepo {
   double getWeeklyReport(DateTime currDate, Habit habit) {
     RxDouble totalWeeklyProgress = RxDouble(0.0);
 
-
-    for (int i=0; i<7; i++){
+    for (int i = 0; i < 7; i++) {
       if (checkDateCompleted(currDate.subtract(Duration(days: i)), habit)) {
-        totalWeeklyProgress.value  += 1;
+        totalWeeklyProgress.value += 1;
       }
     }
 
     return totalWeeklyProgress.value / 7;
   }
 
-  bool checkDateCompleted(DateTime givenDateTime, Habit habit) {
-    if (habit.listCompletedTaskDays.contains(
-        "${givenDateTime.day}-${givenDateTime.month}-${givenDateTime.year}")) {
+  bool checkDateCompleted(DateTime currDate, Habit habit) {
+    String formatedDate = "${currDate.day}-${currDate.month}-${currDate.year}";
+    bool isDatePresent = habit.listCompletedTaskDays
+        .any((completedDay) => completedDay.date == formatedDate);
+
+    if (isDatePresent) {
       return true;
     } else {
       return false;

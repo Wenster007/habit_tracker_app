@@ -16,8 +16,8 @@ class HabitController extends GetxController{
     return habitRepo.getListOfHabits();
   }
 
-  void addRemoveDateInHabit(DateTime date, Habit habit) {
-    habitRepo.addRemoveDateInHabit(date, habit);
+  void addRemoveDateInYesNoHabit(DateTime date, Habit habit) {
+    habitRepo.addRemoveDateInYesNoHabit(date, habit);
     update();
   }
 

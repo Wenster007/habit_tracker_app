@@ -10,7 +10,7 @@ import '../Utils/main_colors.dart';
 class HabitTile extends StatefulWidget {
   const HabitTile({
     Key? key,
-    required this.addRemoveDateInHabit,
+    required this.addRemoveDateInYesNoHabit,
     required this.habit,
     required this.scrollController,
     required this.checkDateCompleted,
@@ -20,7 +20,7 @@ class HabitTile extends StatefulWidget {
   @override
   State<HabitTile> createState() => _HabitTileState();
 
-  final void Function(DateTime, Habit) addRemoveDateInHabit;
+  final void Function(DateTime, Habit) addRemoveDateInYesNoHabit;
   final bool Function(DateTime, Habit) checkDateCompleted;
   final double Function(DateTime, Habit) getWeeklyReport;
   final ScrollController scrollController;
@@ -29,7 +29,6 @@ class HabitTile extends StatefulWidget {
 }
 
 class _HabitTileState extends State<HabitTile> {
-
   //todo: change the habit tile for measurable habit and make it interactive.
 
   @override
@@ -42,24 +41,25 @@ class _HabitTileState extends State<HabitTile> {
       child: Row(
         children: [
           Container(
-            margin: EdgeInsets.symmetric(horizontal: Dimensions.height * 0.013),
-            width: Dimensions.height * 0.03,
+            alignment: Alignment.center,
+            width: Dimensions.width * 0.095,
             height: Dimensions.height * 0.03,
             child: CustomCircularProgressIndicator(
               progress: widget.getWeeklyReport(DateTime.now(), widget.habit),
-
               color: widget.habit.color,
             ),
           ),
           Container(
-            width: Dimensions.width * 0.4,
-            child: Text(widget.habit.name,
-                style: TextStyle(
-                  color: widget.habit.color,
-                  fontWeight: FontWeight.w400,
-                  fontSize: Dimensions.width * 0.043,
-                  letterSpacing: 2,
-                )),
+            width: Dimensions.width * 0.405,
+            child: Text(
+              widget.habit.name,
+              style: TextStyle(
+                color: widget.habit.color,
+                fontWeight: FontWeight.w400,
+                fontSize: Dimensions.width * 0.043,
+                letterSpacing: 2,
+              ),
+            ),
           ),
           Expanded(
             child: ListView.builder(
@@ -69,24 +69,66 @@ class _HabitTileState extends State<HabitTile> {
               itemBuilder: (context, index) {
                 return GetBuilder<HabitController>(
                   builder: (controller) {
-                    return IconButton(
-                      onPressed: () {
-                        DateTime dateTime = DateTime.now();
-                        final currDateTime =
-                            dateTime.subtract(Duration(days: index));
+                    return widget.habit.isMeasurable
+                        ? Container(
+                            width: Dimensions.width * 0.13,
+                            alignment: Alignment.center,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "0.0",
+                                  style: TextStyle(
+                                      color: Colors.grey.withOpacity(0.4),
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: Dimensions.height * 0.02),
+                                ),
+                                Text(
+                                  widget.habit.quantity!.unit,
+                                  style: TextStyle(
+                                      color: Colors.grey.withOpacity(0.4),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: Dimensions.height * 0.015),
+                                ),
+                              ],
+                            ),
+                          )
+                        : Container(
+                            // height: Dimensions.width * 0.03,
+                            width: Dimensions.width * 0.13,
+                            alignment: Alignment.center,
 
-                          widget.addRemoveDateInHabit(
-                              currDateTime, widget.habit);
-                      },
-                      icon: Icon(
-                        Icons.check,
-                        color: widget.checkDateCompleted(
-                                DateTime.now().subtract(Duration(days: index)),
-                                widget.habit)
-                            ? widget.habit.color
-                            : Colors.grey.withOpacity(0.6),
-                      ),
-                    );
+                            child: Icon(
+                              Icons.check,
+                              color: widget.checkDateCompleted(
+                                      DateTime.now()
+                                          .subtract(Duration(days: index)),
+                                      widget.habit)
+                                  ? widget.habit.color
+                                  : Colors.grey.withOpacity(0.6),
+                            ),
+                          );
+
+                    // : IconButton(
+                    //     onPressed: () {
+                    //       DateTime dateTime = DateTime.now();
+                    //       final currDateTime =
+                    //           dateTime.subtract(Duration(days: index));
+                    //
+                    //       widget.addRemoveDateInYesNoHabit(
+                    //           currDateTime, widget.habit);
+                    //     },
+                    //     icon: Icon(
+                    //       Icons.check,
+                    //       color: widget.checkDateCompleted(
+                    //               DateTime.now()
+                    //                   .subtract(Duration(days: index)),
+                    //               widget.habit)
+                    //           ? widget.habit.color
+                    //           : Colors.grey.withOpacity(0.6),
+                    //     ),
+                    //
+                    //   );
                   },
                 );
               },
@@ -94,7 +136,6 @@ class _HabitTileState extends State<HabitTile> {
           ),
         ],
       ),
-
     );
   }
 }

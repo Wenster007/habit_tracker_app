@@ -8,7 +8,7 @@ class Habit {
   final Color color;
   final String frequency;
   final DateTime? reminder;
-  final List<String> listCompletedTaskDays = [];
+  final List<CompletedDay> listCompletedTaskDays = [];
 
   Habit(
       {required this.isMeasurable,
@@ -21,6 +21,12 @@ class Habit {
       });
 }
 
+class CompletedDay{
+  final String date;
+  final String? doneTargetValue;
+
+  CompletedDay(this.date, this.doneTargetValue);
+}
 
 class Quantity {
   final String unit;

@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemCount: habitController.getListOfHabits().length,
                   itemBuilder: (context, index) {
                     return HabitTile(
-                      addRemoveDateInHabit: habitController.addRemoveDateInHabit,
+                      addRemoveDateInYesNoHabit: habitController.addRemoveDateInYesNoHabit,
                       checkDateCompleted: habitController.checkDateCompleted,
                       getWeeklyReport: habitController.getWeeklyReport,
                       scrollController: scrollController2,
