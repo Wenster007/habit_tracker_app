@@ -36,7 +36,6 @@ class HabitTile extends StatefulWidget {
 }
 
 class _HabitTileState extends State<HabitTile> {
-  //todo: change the color for measurable habits.
   //todo: simplify the code.
 
   Future<void> _showInputDialogue(BuildContext context, DateTime date) {
@@ -120,7 +119,8 @@ class _HabitTileState extends State<HabitTile> {
             height: Dimensions.height * 0.03,
             child: CustomCircularProgressIndicator(
               progress: widget.habit.isMeasurable
-                  ? widget.getWeeklyReportForMeasurableHabit(DateTime.now(), widget.habit)
+                  ? widget.getWeeklyReportForMeasurableHabit(
+                      DateTime.now(), widget.habit)
                   : widget.getWeeklyReport(DateTime.now(), widget.habit),
               color: widget.habit.color,
             ),
@@ -143,6 +143,22 @@ class _HabitTileState extends State<HabitTile> {
               scrollDirection: Axis.horizontal,
               itemCount: 7,
               itemBuilder: (context, index) {
+
+                //---------------------------
+                DateTime currDateForThisTile =
+                    DateTime.now().subtract(Duration(days: index));
+
+                String? doneValueForThisDate =
+                    widget.getDoneValueForMeasurableHabit(
+                        currDateForThisTile, widget.habit);
+
+                String? targetValueOfHabit = widget.habit.target!.targetValue;
+
+                bool isDatePresentInHabit = widget.checkDateCompleted(
+                    currDateForThisTile, widget.habit);
+
+                //------------------------------------
+
                 return GetBuilder<HabitController>(
                   builder: (controller) {
                     return widget.habit.isMeasurable
@@ -151,8 +167,7 @@ class _HabitTileState extends State<HabitTile> {
                               Vibration.vibrate(duration: 50, amplitude: 50);
                               _showInputDialogue(
                                   context,
-                                  DateTime.now()
-                                      .subtract(Duration(days: index)));
+                                  currDateForThisTile);
                               // Navigator.pop(context);
                             },
                             child: Container(
@@ -162,19 +177,20 @@ class _HabitTileState extends State<HabitTile> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    widget.checkDateCompleted(
-                                            DateTime.now().subtract(
-                                                Duration(days: index)),
-                                            widget.habit)
-                                        ? widget.getDoneValueForMeasurableHabit(
-                                            DateTime.now().subtract(
-                                                Duration(days: index)),
-                                            widget.habit)!
-                                        : "0.0",
+                                    isDatePresentInHabit
+                                        ? doneValueForThisDate!
+                                        : "0",
                                     style: TextStyle(
-                                        color: Colors.grey.withOpacity(0.4),
-                                        fontWeight: FontWeight.w800,
-                                        fontSize: Dimensions.height * 0.02),
+                                        color: !isDatePresentInHabit
+                                            ? Colors.grey.withOpacity(0.4)
+                                            : (double.parse(
+                                                        doneValueForThisDate!) >=
+                                                    double.parse(
+                                                        targetValueOfHabit))
+                                                ? widget.habit.color
+                                                : Colors.white.withOpacity(0.5),
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: Dimensions.height * 0.019),
                                   ),
                                   Text(
                                     widget.habit.target!.unit,
@@ -191,19 +207,14 @@ class _HabitTileState extends State<HabitTile> {
                             onLongPress: () {
                               Vibration.vibrate(duration: 50, amplitude: 50);
                               widget.addRemoveDateInYesNoHabit(
-                                  DateTime.now()
-                                      .subtract(Duration(days: index)),
-                                  widget.habit);
+                                  currDateForThisTile, widget.habit);
                             },
                             child: Container(
                               width: Dimensions.width * 0.13,
                               alignment: Alignment.center,
                               child: Icon(
                                 Icons.check,
-                                color: widget.checkDateCompleted(
-                                        DateTime.now()
-                                            .subtract(Duration(days: index)),
-                                        widget.habit)
+                                color: isDatePresentInHabit
                                     ? widget.habit.color
                                     : Colors.grey.withOpacity(0.6),
                               ),

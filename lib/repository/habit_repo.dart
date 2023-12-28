@@ -92,7 +92,7 @@ class HabitRepo {
 
       if (checkDatePresent(currDate, habit)) {
         totalWeeklyProgress.value +=
-            int.parse(getDoneValueForMeasurableHabit(currDate, habit)!);
+            double.parse(getDoneValueForMeasurableHabit(currDate, habit)!);
       }
     }
 
