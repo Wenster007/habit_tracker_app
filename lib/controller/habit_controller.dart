@@ -21,8 +21,21 @@ class HabitController extends GetxController{
     update();
   }
 
+  void addRemoveForMeasurableHabit(DateTime currDate, Habit habit, String doneValue){
+    habitRepo.addRemoveForMeasurableHabit(currDate, habit, doneValue);
+    update();
+  }
+
+  String? getDoneValueForMeasurableHabit(DateTime currDate, Habit habit){
+    return habitRepo.getDoneValueForMeasurableHabit(currDate, habit);
+  }
+
   double getWeeklyReport(DateTime currDate, Habit habit){
     return habitRepo.getWeeklyReport(currDate, habit);
+  }
+
+  double getWeeklyReportForMeasurableHabit(DateTime date, Habit habit) {
+    return habitRepo.getWeeklyReportForMeasurableHabit(date, habit);
   }
 
   void updateNumberOfHabits() {
@@ -30,6 +43,6 @@ class HabitController extends GetxController{
   }
 
   bool checkDateCompleted(DateTime targetDateTime, Habit habit) {
-    return habitRepo.checkDateCompleted(targetDateTime, habit);
+    return habitRepo.checkDatePresent(targetDateTime, habit);
   }
 }

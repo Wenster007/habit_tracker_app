@@ -46,8 +46,8 @@ class _MeasurableScreenState extends State<MeasurableScreen> {
           color: selectedColor,
           frequency: frequency,
           question: questionController.text,
-          quantity: Quantity(
-            target: targetController.text,
+          target: Target(
+            targetValue: targetController.text,
             unit: unitController.text,
           ),
         ),

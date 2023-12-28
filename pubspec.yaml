@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   get: ^4.6.5
   percent_indicator: ^4.2.3
+  vibration: ^1.8.4
 
 dev_dependencies:
   flutter_test:

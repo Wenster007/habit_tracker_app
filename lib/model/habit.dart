@@ -2,7 +2,7 @@ import 'dart:ui';
 
 class Habit {
   final bool isMeasurable;
-  final Quantity? quantity;
+  final Target? target;
   final String name;
   final String question;
   final Color color;
@@ -12,7 +12,7 @@ class Habit {
 
   Habit(
       {required this.isMeasurable,
-      this.quantity,
+      this.target,
       required this.name,
         required this.question,
       required this.color,
@@ -23,14 +23,14 @@ class Habit {
 
 class CompletedDay{
   final String date;
-  final String? doneTargetValue;
+  String? doneTargetValue;
 
   CompletedDay(this.date, this.doneTargetValue);
 }
 
-class Quantity {
+class Target {
   final String unit;
-  final String target;
+  final String targetValue;
 
-  Quantity({required this.unit,required this.target});
+  Target({required this.unit,required this.targetValue});
 }
